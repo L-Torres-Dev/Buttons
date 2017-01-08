@@ -59,7 +59,6 @@ public class InventoryScreen implements Screen {
     MyLabel item10;
 
     ArrayList<String> stringList;
-    String listOfItems;
     String itemString1;
     String itemString2;
     String itemString3;
@@ -142,23 +141,23 @@ public class InventoryScreen implements Screen {
             }
         });
 
-        item8.addListener(new ClickListener(){
+        item8.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y){
+            public void clicked(InputEvent event, float x, float y) {
                 selectLabel(item8);
             }
         });
 
-        item9.addListener(new ClickListener(){
+        item9.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y){
+            public void clicked(InputEvent event, float x, float y) {
                 selectLabel(item9);
             }
         });
 
-        item10.addListener(new ClickListener(){
+        item10.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y){
+            public void clicked(InputEvent event, float x, float y) {
                 selectLabel(item10);
             }
         });
@@ -246,7 +245,6 @@ public class InventoryScreen implements Screen {
 
     private void initString(){
 
-        listOfItems = hero.getInventory().toString();
 
         // instantiate Strings
         itemString1 = "";
@@ -278,7 +276,7 @@ public class InventoryScreen implements Screen {
 
         itemString1 = hero.getInventory().getItemById(0).getName();
 
-        for(int i = 0; i < hero.getInventory().getItems().size(); i++)
+        for(int i = 0; i < hero.getInventory().getItems().size() - 1; i++)
         {
             stringList.set(i, hero.getInventory().getItemById(i).getName());
         }
@@ -323,21 +321,33 @@ public class InventoryScreen implements Screen {
         item9 = new MyLabel(itemString9, new Label.LabelStyle(font, font.getColor()));
         item10 = new MyLabel(itemString10, new Label.LabelStyle(font, font.getColor()));
 
-        item1.addItem(hero.getInventory().getItemById(0));
-        item2.addItem(hero.getInventory().getItemById(1));
-        item3.addItem(hero.getInventory().getItemById(2));
-        item4.addItem(hero.getInventory().getItemById(3));
-        item5.addItem(hero.getInventory().getItemById(4));
-        item6.addItem(hero.getInventory().getItemById(5));
-        item7.addItem(hero.getInventory().getItemById(6));
-        item8.addItem(hero.getInventory().getItemById(7));
-        item9.addItem(hero.getInventory().getItemById(8));
-        item10.addItem(hero.getInventory().getItemById(9));
+        item1.addItem(returnItem(0));
+        item2.addItem(returnItem(1));
+        item3.addItem(returnItem(2));
+        item4.addItem(returnItem(3));
+        item5.addItem(returnItem(4));
+        item6.addItem(returnItem(5));
+        item7.addItem(returnItem(6));
+        item8.addItem(returnItem(7));
+        item9.addItem(returnItem(8));
+        item10.addItem(returnItem(9));
 
         item1.setSelected(true);
 
 
         addLabelListeners();
+    }
+
+    private Item returnItem(int i)
+    {
+        Item item = null;
+
+        if(!hero.getInventory().getItemById(i).equals(null))
+        {
+            item = hero.getInventory().getItemById(i);
+        }
+
+        return item;
     }
 
     private void selectLabel(MyLabel label)

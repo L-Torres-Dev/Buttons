@@ -57,16 +57,20 @@ public class Hero extends Character{
         addItem(new HealingPotion());
         addItem(new HealingPotion());
         addItem(new HealingPotion());
-        addItem(new HealingPotion());
-        addItem(new HealingPotion());
-        addItem(new HealingPotion());
-        addItem(new HealingPotion());
-        addItem(new HealingPotion());
+        initializeInventory();
 
         gold = 10;
         createSkills();
         setRegens();
 
+    }
+
+    private void initializeInventory()
+    {
+        for(int i = inventory.getItems().size() - 1; i < Inventory.maxItems; i++)
+        {
+            addItem(new Item());
+        }
     }
 
     private void createSkills() {

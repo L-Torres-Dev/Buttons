@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Inventory {
 
     ArrayList<Item> items;
-    static int maxItems = 10;
+   public static int maxItems = 10;
 
     public Inventory(){
         items = new ArrayList<Item>(maxItems);
@@ -47,7 +47,10 @@ public class Inventory {
         String listOfItems = "";
 
         for(Item item: items){
-            listOfItems += item.getName() + "\n";
+            if(!item.equals(null))
+            {
+                listOfItems += item.getName() + "\n";
+            }
         }
 
         return listOfItems;

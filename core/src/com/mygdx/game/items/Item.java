@@ -14,6 +14,11 @@ public class Item {
 
     public String name;
 
+    public Item()
+    {
+        name = "";
+    }
+
     public String getName() {
 
         if(this == null)
