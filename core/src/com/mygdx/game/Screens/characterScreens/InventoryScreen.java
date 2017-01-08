@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -47,6 +46,12 @@ public class InventoryScreen implements Screen {
     Label legs;
     Label feet;
 
+    MyLabel myTorso;
+    MyLabel myRightArm;
+    MyLabel myLeftArm;
+    MyLabel myLegs;
+    MyLabel myFeet;
+
     MyLabel item1;
     MyLabel item2;
     MyLabel item3;
@@ -69,6 +74,7 @@ public class InventoryScreen implements Screen {
     String itemString8;
     String itemString9;
     String itemString10;
+    private static final String EMPTY = "EMPTY";
 
     public InventoryScreen(MyGdxGame game, SpriteBatch batch, ScreenManager manager)
     {
@@ -95,70 +101,70 @@ public class InventoryScreen implements Screen {
         item1.addListener(new ClickListener(){
            @Override
             public void clicked(InputEvent event, float x, float y){
-                selectLabel(item1);
+                selectInventoryLabel(item1);
             }
         });
 
         item2.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                selectLabel(item2);
+                selectInventoryLabel(item2);
             }
         });
 
         item3.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                selectLabel(item3);
+                selectInventoryLabel(item3);
             }
         });
 
         item4.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                selectLabel(item4);
+                selectInventoryLabel(item4);
             }
         });
 
         item5.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                selectLabel(item5);
+                selectInventoryLabel(item5);
             }
         });
 
         item6.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                selectLabel(item6);
+                selectInventoryLabel(item6);
             }
         });
 
         item7.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                selectLabel(item7);
+                selectInventoryLabel(item7);
             }
         });
 
         item8.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                selectLabel(item8);
+                selectInventoryLabel(item8);
             }
         });
 
         item9.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                selectLabel(item9);
+                selectInventoryLabel(item9);
             }
         });
 
         item10.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                selectLabel(item10);
+                selectInventoryLabel(item10);
             }
         });
     }
@@ -175,11 +181,11 @@ public class InventoryScreen implements Screen {
 
         mainTable.setWidth(stage.getWidth());
         mainTable.setHeight(stage.getHeight());
-        mainTable.align(Align.right|Align.top);
+        mainTable.align(Align.right | Align.top);
         mainTable.setPosition(0, 0);
 
         itemsTable.setWidth(mainTable.getWidth() / 5);
-        itemsTable.align(Align.center|Align.top);
+        itemsTable.align(Align.center | Align.top);
         itemsTable.add(items);
         itemsTable.row();
         itemsTable.add(item1).top();
@@ -202,8 +208,34 @@ public class InventoryScreen implements Screen {
         itemsTable.row();
         itemsTable.add(item10);
 
+        interfaceTable.align(Align.center | Align.center);
+        interfaceTable.add(torso);
+        torso.setX(torso.getX(200));
+        interfaceTable.row();
+        interfaceTable.add(myTorso);
+        interfaceTable.row();
+        interfaceTable.add(rightArm).left();
+        interfaceTable.add(leftArm).left();
+        interfaceTable.row();
+        interfaceTable.add(myRightArm);
+        interfaceTable.add(myLeftArm);
+        interfaceTable.row();
+        interfaceTable.add(legs);
+        interfaceTable.row();
+        interfaceTable.add(myLegs);
+        interfaceTable.row();
+        interfaceTable.add(feet);
+        interfaceTable.row();
+        interfaceTable.add(myFeet);
+        interfaceTable.add(buttonTable);
 
+
+
+        mainTable.add(interfaceTable).width(mainTable.getWidth()).padRight(0);
         mainTable.add(itemsTable).top().padRight(60);
+
+        interfaceTable.debugTable();
+
 
 
     }
@@ -299,6 +331,10 @@ public class InventoryScreen implements Screen {
         mainTable = new Table();
 
         itemsTable = new Table();
+
+        interfaceTable = new Table();
+
+        buttonTable = new Table();
     }
 
     private void initButtons(){
@@ -320,6 +356,18 @@ public class InventoryScreen implements Screen {
         item8 = new MyLabel(itemString8, new Label.LabelStyle(font, font.getColor()));
         item9 = new MyLabel(itemString9, new Label.LabelStyle(font, font.getColor()));
         item10 = new MyLabel(itemString10, new Label.LabelStyle(font, font.getColor()));
+
+        torso = new Label("Torso", new Label.LabelStyle(font, font.getColor()));
+        rightArm = new Label("Right Arm", new Label.LabelStyle(font, font.getColor()));
+        leftArm = new Label("Left Arm", new Label.LabelStyle(font, font.getColor()));
+        legs = new Label("Legs", new Label.LabelStyle(font, font.getColor()));
+        feet = new Label("Feet", new Label.LabelStyle(font, font.getColor()));
+
+        myTorso = new MyLabel(EMPTY, new Label.LabelStyle(font, font.getColor()));
+        myRightArm = new MyLabel(EMPTY, new Label.LabelStyle(font, font.getColor()));
+        myLeftArm = new MyLabel(EMPTY, new Label.LabelStyle(font, font.getColor()));
+        myLegs = new MyLabel(EMPTY, new Label.LabelStyle(font, font.getColor()));
+        myFeet = new MyLabel(EMPTY, new Label.LabelStyle(font, font.getColor()));
 
         item1.addItem(returnItem(0));
         item2.addItem(returnItem(1));
@@ -350,7 +398,7 @@ public class InventoryScreen implements Screen {
         return item;
     }
 
-    private void selectLabel(MyLabel label)
+    private void selectInventoryLabel(MyLabel label)
     {
         item1.setSelected(false);
         item2.setSelected(false);
