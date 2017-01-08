@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Screens.ScreenManager;
 import com.mygdx.game.creatures.Hero;
+import com.mygdx.game.items.Item;
 
 import java.util.ArrayList;
 
@@ -36,9 +37,16 @@ public class InventoryScreen implements Screen {
 
     Table mainTable;
     Table itemsTable;
-    Table scrollButtons;
+    Table interfaceTable;
+    Table buttonTable;
 
     Label items;        // Just a label to indicate where the itemList is
+    Label torso;
+    Label rightArm;
+    Label leftArm;
+    Label legs;
+    Label feet;
+
     MyLabel item1;
     MyLabel item2;
     MyLabel item3;
@@ -49,9 +57,6 @@ public class InventoryScreen implements Screen {
     MyLabel item8;
     MyLabel item9;
     MyLabel item10;
-
-    TextButton scrollUp;
-    TextButton scrollDown;
 
     ArrayList<String> stringList;
     String listOfItems;
@@ -198,14 +203,8 @@ public class InventoryScreen implements Screen {
         itemsTable.row();
         itemsTable.add(item10);
 
-        scrollButtons.align(Align.center|Align.top);
-        scrollButtons.setHeight(mainTable.getHeight());
-        scrollButtons.add(scrollUp);
-        scrollButtons.row();
-        scrollButtons.add(scrollDown).padTop(mainTable.getHeight() - 80);
 
-        mainTable.add(itemsTable).top();
-        mainTable.add(scrollButtons);
+        mainTable.add(itemsTable).top().padRight(60);
 
 
     }
@@ -302,13 +301,10 @@ public class InventoryScreen implements Screen {
         mainTable = new Table();
 
         itemsTable = new Table();
-        scrollButtons = new Table();
     }
 
     private void initButtons(){
 
-        scrollUp = new TextButton("Scroll Up", skin);
-        scrollDown = new TextButton("Scroll Down", skin);
 
     }
 
@@ -326,6 +322,20 @@ public class InventoryScreen implements Screen {
         item8 = new MyLabel(itemString8, new Label.LabelStyle(font, font.getColor()));
         item9 = new MyLabel(itemString9, new Label.LabelStyle(font, font.getColor()));
         item10 = new MyLabel(itemString10, new Label.LabelStyle(font, font.getColor()));
+
+        item1.addItem(hero.getInventory().getItemById(0));
+        item2.addItem(hero.getInventory().getItemById(1));
+        item3.addItem(hero.getInventory().getItemById(2));
+        item4.addItem(hero.getInventory().getItemById(3));
+        item5.addItem(hero.getInventory().getItemById(4));
+        item6.addItem(hero.getInventory().getItemById(5));
+        item7.addItem(hero.getInventory().getItemById(6));
+        item8.addItem(hero.getInventory().getItemById(7));
+        item9.addItem(hero.getInventory().getItemById(8));
+        item10.addItem(hero.getInventory().getItemById(9));
+
+        item1.setSelected(true);
+
 
         addLabelListeners();
     }
@@ -396,12 +406,21 @@ public class InventoryScreen implements Screen {
     public class MyLabel extends Label{
 
         boolean selected;
+        Item item;
 
         public void setLabelText(){
 
             if(selected)
             {
                 this.setText(">" + this.getText());
+            }
+        }
+
+        public void addItem(Item item)
+        {
+            if(!this.getText().equals(""))
+            {
+                setItem(item);
             }
         }
 
@@ -431,6 +450,14 @@ public class InventoryScreen implements Screen {
 
         public void setSelected(boolean selected) {
             this.selected = selected;
+        }
+
+        public Item getItem() {
+            return item;
+        }
+
+        public void setItem(Item item) {
+            this.item = item;
         }
     }
 

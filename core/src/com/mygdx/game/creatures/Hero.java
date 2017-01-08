@@ -56,6 +56,12 @@ public class Hero extends Character{
         addItem(new HealingPotion());
         addItem(new HealingPotion());
         addItem(new HealingPotion());
+        addItem(new HealingPotion());
+        addItem(new HealingPotion());
+        addItem(new HealingPotion());
+        addItem(new HealingPotion());
+        addItem(new HealingPotion());
+        addItem(new HealingPotion());
 
         gold = 10;
         createSkills();
