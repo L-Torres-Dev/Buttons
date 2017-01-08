@@ -1,0 +1,14 @@
+{
+com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	TestFont: {
+		file: TestFont.fnt
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	default: {
+		font: TestFont
+		up: Normbutton
+		down: NormbuttonPressed
+	}
+}
+}
