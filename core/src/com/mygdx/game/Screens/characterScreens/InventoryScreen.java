@@ -179,6 +179,8 @@ public class InventoryScreen implements Screen {
 
     private void setStageProperties(){
 
+        float padding = 50;
+
         mainTable.setWidth(stage.getWidth());
         mainTable.setHeight(stage.getHeight());
         mainTable.align(Align.right | Align.top);
@@ -209,32 +211,31 @@ public class InventoryScreen implements Screen {
         itemsTable.add(item10);
 
         interfaceTable.align(Align.center | Align.center);
-        interfaceTable.add(torso);
-        torso.setX(torso.getX(200));
+        interfaceTable.add(torso).padLeft(padding * 4);
         interfaceTable.row();
-        interfaceTable.add(myTorso);
+        interfaceTable.add(myTorso).padLeft(padding * 4);
         interfaceTable.row();
-        interfaceTable.add(rightArm).left();
-        interfaceTable.add(leftArm).left();
+        interfaceTable.add(rightArm).padRight(padding + 20);
+        interfaceTable.add(leftArm).padLeft(padding);
         interfaceTable.row();
-        interfaceTable.add(myRightArm);
-        interfaceTable.add(myLeftArm);
+        interfaceTable.add(myRightArm).padRight(padding + 20);
+        interfaceTable.add(myLeftArm).padLeft(padding);
         interfaceTable.row();
-        interfaceTable.add(legs);
+        interfaceTable.add(legs).padLeft(padding * 4);
         interfaceTable.row();
-        interfaceTable.add(myLegs);
+        interfaceTable.add(myLegs).padLeft(padding * 4);
         interfaceTable.row();
-        interfaceTable.add(feet);
+        interfaceTable.add(feet).padLeft(padding * 4).padTop(20);
         interfaceTable.row();
-        interfaceTable.add(myFeet);
+        interfaceTable.add(myFeet).padLeft(padding * 4);
+        interfaceTable.row();
         interfaceTable.add(buttonTable);
 
 
 
-        mainTable.add(interfaceTable).width(mainTable.getWidth()).padRight(0);
+        mainTable.add(interfaceTable).width(mainTable.getWidth() * .65f).padRight(0);
         mainTable.add(itemsTable).top().padRight(60);
 
-        interfaceTable.debugTable();
 
 
 
