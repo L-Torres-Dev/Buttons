@@ -19,6 +19,7 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Screens.ScreenManager;
 import com.mygdx.game.creatures.Hero;
 import com.mygdx.game.items.Consumable;
+import com.mygdx.game.items.Inventory;
 import com.mygdx.game.items.Item;
 
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ public class InventoryScreen implements Screen {
     MyLabel myFeet;
 
     Item selectedItem;
+    MyLabel selectedLabel;
     MyLabel item1;
     MyLabel item2;
     MyLabel item3;
@@ -110,6 +112,24 @@ public class InventoryScreen implements Screen {
                 Gdx.input.setInputProcessor(manager.getStatsScreen().stage);
             }
         });
+
+        actionButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if(selectedItem instanceof Consumable)
+                {
+                    ((Consumable) selectedItem).consume(hero);
+                    removeItem(selectedLabel);
+                }
+            }
+        });
+    }
+
+    private void removeItem(MyLabel label)
+    {
+        Item itemVariant = selectedItem;
+
+
     }
 
     private void addLabelListeners() {
@@ -290,32 +310,42 @@ public class InventoryScreen implements Screen {
         item1.setText(itemString1);
         item1.setLabelText();
 
+
         item2.setText(itemString2);
         item2.setLabelText();
+
 
         item3.setText(itemString3);
         item3.setLabelText();
 
+
         item4.setText(itemString4);
         item4.setLabelText();
+
 
         item5.setText(itemString5);
         item5.setLabelText();
 
+
         item6.setText(itemString6);
         item6.setLabelText();
+
 
         item7.setText(itemString7);
         item7.setLabelText();
 
+
         item8.setText(itemString8);
         item8.setLabelText();
+
 
         item9.setText(itemString9);
         item9.setLabelText();
 
+
         item10.setText(itemString10);
         item10.setLabelText();
+
     }
 
     private void initString(){
@@ -397,15 +427,25 @@ public class InventoryScreen implements Screen {
         items = new Label("Items:", new Label.LabelStyle(font, font.getColor()));
 
         item1 = new MyLabel(itemString1, new Label.LabelStyle(font, font.getColor()));
+        item1.setItemId(0);
         item2 = new MyLabel(itemString2, new Label.LabelStyle(font, font.getColor()));
+        item1.setItemId(1);
         item3 = new MyLabel(itemString3, new Label.LabelStyle(font, font.getColor()));
+        item1.setItemId(2);
         item4 = new MyLabel(itemString4, new Label.LabelStyle(font, font.getColor()));
+        item1.setItemId(3);
         item5 = new MyLabel(itemString5, new Label.LabelStyle(font, font.getColor()));
+        item1.setItemId(4);
         item6 = new MyLabel(itemString6, new Label.LabelStyle(font, font.getColor()));
+        item1.setItemId(5);
         item7 = new MyLabel(itemString7, new Label.LabelStyle(font, font.getColor()));
+        item1.setItemId(6);
         item8 = new MyLabel(itemString8, new Label.LabelStyle(font, font.getColor()));
+        item1.setItemId(7);
         item9 = new MyLabel(itemString9, new Label.LabelStyle(font, font.getColor()));
+        item1.setItemId(8);
         item10 = new MyLabel(itemString10, new Label.LabelStyle(font, font.getColor()));
+        item1.setItemId(9);
 
         torso = new Label("Torso", new Label.LabelStyle(font, font.getColor()));
         rightArm = new Label("Right Arm", new Label.LabelStyle(font, font.getColor()));
@@ -430,8 +470,7 @@ public class InventoryScreen implements Screen {
         item9.addItem(returnItem(8));
         item10.addItem(returnItem(9));
 
-        item1.setSelected(true);
-        selectedItem = item1.getItem();
+        selectInventoryLabel(item1);
 
         updateActionButton();
 
@@ -466,6 +505,7 @@ public class InventoryScreen implements Screen {
 
         label.setSelected(true);
         selectedItem = label.getItem();
+        selectedLabel = label;
 
     }
 
@@ -519,6 +559,7 @@ public class InventoryScreen implements Screen {
 
         boolean selected;
         Item item;
+        int itemId;
 
         public void setLabelText(){
 
@@ -570,6 +611,14 @@ public class InventoryScreen implements Screen {
 
         public void setItem(Item item) {
             this.item = item;
+        }
+
+        public int getItemId() {
+            return itemId;
+        }
+
+        public void setItemId(int itemId) {
+            this.itemId = itemId;
         }
     }
 

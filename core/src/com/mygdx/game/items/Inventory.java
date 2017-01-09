@@ -19,6 +19,11 @@ public class Inventory {
         items.add(item);
     }
 
+    public void removeItem(int id)
+    {
+        items.remove(id);
+    }
+
     public Item getItemById(int id)
     {
         return items.get(id);
