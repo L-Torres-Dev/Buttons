@@ -11,12 +11,14 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Screens.ScreenManager;
 import com.mygdx.game.creatures.Hero;
+import com.mygdx.game.items.Consumable;
 import com.mygdx.game.items.Item;
 
 import java.util.ArrayList;
@@ -52,6 +54,7 @@ public class InventoryScreen implements Screen {
     MyLabel myLegs;
     MyLabel myFeet;
 
+    Item selectedItem;
     MyLabel item1;
     MyLabel item2;
     MyLabel item3;
@@ -62,6 +65,9 @@ public class InventoryScreen implements Screen {
     MyLabel item8;
     MyLabel item9;
     MyLabel item10;
+
+    TextButton actionButton;
+    TextButton backButton;
 
     ArrayList<String> stringList;
     String itemString1;
@@ -102,6 +108,7 @@ public class InventoryScreen implements Screen {
            @Override
             public void clicked(InputEvent event, float x, float y){
                 selectInventoryLabel(item1);
+               updateActionButton();
             }
         });
 
@@ -109,6 +116,7 @@ public class InventoryScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 selectInventoryLabel(item2);
+                updateActionButton();
             }
         });
 
@@ -116,6 +124,7 @@ public class InventoryScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 selectInventoryLabel(item3);
+                updateActionButton();
             }
         });
 
@@ -123,6 +132,7 @@ public class InventoryScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 selectInventoryLabel(item4);
+                updateActionButton();
             }
         });
 
@@ -130,6 +140,7 @@ public class InventoryScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 selectInventoryLabel(item5);
+                updateActionButton();
             }
         });
 
@@ -137,6 +148,7 @@ public class InventoryScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 selectInventoryLabel(item6);
+                updateActionButton();
             }
         });
 
@@ -144,6 +156,7 @@ public class InventoryScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 selectInventoryLabel(item7);
+                updateActionButton();
             }
         });
 
@@ -151,6 +164,7 @@ public class InventoryScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 selectInventoryLabel(item8);
+                updateActionButton();
             }
         });
 
@@ -158,6 +172,7 @@ public class InventoryScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 selectInventoryLabel(item9);
+                updateActionButton();
             }
         });
 
@@ -165,6 +180,7 @@ public class InventoryScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 selectInventoryLabel(item10);
+                updateActionButton();
             }
         });
     }
@@ -229,15 +245,31 @@ public class InventoryScreen implements Screen {
         interfaceTable.row();
         interfaceTable.add(myFeet).padLeft(padding * 4);
         interfaceTable.row();
-        interfaceTable.add(buttonTable);
+
+        buttonTable.setWidth(mainTable.getWidth());
+        buttonTable.add(backButton).padRight(padding * 2);
+        buttonTable.add(actionButton);
+
 
 
 
         mainTable.add(interfaceTable).width(mainTable.getWidth() * .65f).padRight(0);
         mainTable.add(itemsTable).top().padRight(60);
+        mainTable.row();
+        mainTable.add(buttonTable);
 
 
 
+
+    }
+
+    private void updateActionButton(){
+
+        if(selectedItem instanceof Consumable)
+        {
+            System.out.println(true);
+            actionButton.setText("Consume");
+        }
 
     }
 
@@ -340,6 +372,8 @@ public class InventoryScreen implements Screen {
 
     private void initButtons(){
 
+        backButton = new TextButton("Back", skin);
+        actionButton = new TextButton("", skin);
 
     }
 
@@ -382,6 +416,9 @@ public class InventoryScreen implements Screen {
         item10.addItem(returnItem(9));
 
         item1.setSelected(true);
+        selectedItem = item1.getItem();
+
+        updateActionButton();
 
 
         addLabelListeners();
@@ -413,6 +450,7 @@ public class InventoryScreen implements Screen {
         item10.setSelected(false);
 
         label.setSelected(true);
+        selectedItem = label.getItem();
 
     }
 
