@@ -116,10 +116,11 @@ public class InventoryScreen implements Screen {
         actionButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(selectedItem instanceof Consumable)
-                {
-                    ((Consumable) selectedItem).consume(hero);
-                    removeItem(selectedLabel);
+                if(!(selectedItem == null)) {
+                    if (selectedItem instanceof Consumable) {
+                        ((Consumable) selectedItem).consume(hero);
+                        removeItem(selectedLabel);
+                    }
                 }
             }
         });
@@ -127,9 +128,22 @@ public class InventoryScreen implements Screen {
 
     private void removeItem(MyLabel label)
     {
-        Item itemVariant = selectedItem;
 
+        hero.getInventory().getItems().remove(selectedLabel.getItemId());
 
+        selectInventoryLabel(item1);
+        hero.initializeInventory();
+
+        item1.addItem(returnItem(0));
+        item2.addItem(returnItem(1));
+        item3.addItem(returnItem(2));
+        item4.addItem(returnItem(3));
+        item5.addItem(returnItem(4));
+        item6.addItem(returnItem(5));
+        item7.addItem(returnItem(6));
+        item8.addItem(returnItem(7));
+        item9.addItem(returnItem(8));
+        item10.addItem(returnItem(9));
     }
 
     private void addLabelListeners() {
@@ -216,11 +230,12 @@ public class InventoryScreen implements Screen {
     }
 
     public void initiateHero(Hero hero){
-        System.out.println("initiating Hero...");
         this.hero = hero;
         initString();
         initLabels();
         setStageProperties();
+
+        System.out.println(hero.getInventory().getItems().size());
     }
 
     private void setStageProperties(){
@@ -428,24 +443,33 @@ public class InventoryScreen implements Screen {
 
         item1 = new MyLabel(itemString1, new Label.LabelStyle(font, font.getColor()));
         item1.setItemId(0);
+
         item2 = new MyLabel(itemString2, new Label.LabelStyle(font, font.getColor()));
-        item1.setItemId(1);
+        item2.setItemId(1);
+
         item3 = new MyLabel(itemString3, new Label.LabelStyle(font, font.getColor()));
-        item1.setItemId(2);
+        item3.setItemId(2);
+
         item4 = new MyLabel(itemString4, new Label.LabelStyle(font, font.getColor()));
-        item1.setItemId(3);
+        item4.setItemId(3);
+
         item5 = new MyLabel(itemString5, new Label.LabelStyle(font, font.getColor()));
-        item1.setItemId(4);
+        item5.setItemId(4);
+
         item6 = new MyLabel(itemString6, new Label.LabelStyle(font, font.getColor()));
-        item1.setItemId(5);
+        item6.setItemId(5);
+
         item7 = new MyLabel(itemString7, new Label.LabelStyle(font, font.getColor()));
-        item1.setItemId(6);
+        item7.setItemId(6);
+
         item8 = new MyLabel(itemString8, new Label.LabelStyle(font, font.getColor()));
-        item1.setItemId(7);
+        item8.setItemId(7);
+
         item9 = new MyLabel(itemString9, new Label.LabelStyle(font, font.getColor()));
-        item1.setItemId(8);
+        item9.setItemId(8);
+
         item10 = new MyLabel(itemString10, new Label.LabelStyle(font, font.getColor()));
-        item1.setItemId(9);
+        item10.setItemId(9);
 
         torso = new Label("Torso", new Label.LabelStyle(font, font.getColor()));
         rightArm = new Label("Right Arm", new Label.LabelStyle(font, font.getColor()));

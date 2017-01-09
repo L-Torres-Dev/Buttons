@@ -5,6 +5,7 @@ import com.mygdx.game.items.Gear;
 import com.mygdx.game.items.Inventory;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.items.items.HealingPotion;
+import com.mygdx.game.items.items.MegaPotion;
 import com.mygdx.game.items.weapons.Armor;
 import com.mygdx.game.items.weapons.Hand;
 import com.mygdx.game.items.weapons.Weapon;
@@ -55,6 +56,7 @@ public class Hero extends Character{
         addItem(new HealingPotion());
         addItem(new HealingPotion());
         addItem(new HealingPotion());
+        addItem(new MegaPotion());
         addItem(new HealingPotion());
         addItem(new HealingPotion());
         initializeInventory();
@@ -65,9 +67,9 @@ public class Hero extends Character{
 
     }
 
-    private void initializeInventory()
+    public void initializeInventory()
     {
-        for(int i = inventory.getItems().size() - 1; i < Inventory.maxItems; i++)
+        for(int i = inventory.getItems().size() - 1; i < Inventory.maxItems - 1; i++)
         {
             addItem(new Item());
         }
