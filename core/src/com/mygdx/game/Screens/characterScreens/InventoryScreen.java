@@ -102,6 +102,16 @@ public class InventoryScreen implements Screen {
         stage.addActor(mainTable);
     }
 
+    private void addButtonListeners() {
+        backButton.addListener(new ClickListener(){
+           @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(manager.getStatsScreen());
+                Gdx.input.setInputProcessor(manager.getStatsScreen().stage);
+            }
+        });
+    }
+
     private void addLabelListeners() {
 
         item1.addListener(new ClickListener(){
@@ -375,7 +385,12 @@ public class InventoryScreen implements Screen {
         backButton = new TextButton("Back", skin);
         actionButton = new TextButton("", skin);
 
+
+        addButtonListeners();
+
     }
+
+
 
     private void initLabels() {
 
