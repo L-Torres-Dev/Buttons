@@ -42,6 +42,7 @@ public class InventoryScreen implements Screen {
     Table interfaceTable;
     Table buttonTable;
 
+    Label selectedItemDescription;
     Label items;        // Just a label to indicate where the itemList is
     Label torso;
     Label rightArm;
@@ -294,17 +295,13 @@ public class InventoryScreen implements Screen {
         buttonTable.setWidth(mainTable.getWidth());
         buttonTable.add(backButton).padRight(padding * 2);
         buttonTable.add(actionButton);
-
-
-
+        buttonTable.row();
+        buttonTable.add(selectedItemDescription);
 
         mainTable.add(interfaceTable).width(mainTable.getWidth() * .65f).padRight(0);
         mainTable.add(itemsTable).top().padRight(60);
         mainTable.row();
         mainTable.add(buttonTable);
-
-
-
 
     }
 
@@ -361,6 +358,8 @@ public class InventoryScreen implements Screen {
         item10.setText(itemString10);
         item10.setLabelText();
 
+        selectedItemDescription.setText(selectedItem.getDescription());
+
     }
 
     private void initString(){
@@ -393,7 +392,6 @@ public class InventoryScreen implements Screen {
         stringList.add(itemString10);
 
 
-
         itemString1 = hero.getInventory().getItemById(0).getName();
 
         for(int i = 0; i < hero.getInventory().getItems().size() - 1; i++)
@@ -411,7 +409,6 @@ public class InventoryScreen implements Screen {
         itemString8 = stringList.get(7);
         itemString9 = stringList.get(8);
         itemString10 = stringList.get(9);
-
     }
 
     private void initTables(){
@@ -438,8 +435,9 @@ public class InventoryScreen implements Screen {
 
 
     private void initLabels() {
+        String spacing = "                   ";
 
-        items = new Label("Items:", new Label.LabelStyle(font, font.getColor()));
+        items = new Label("Items:" + spacing, new Label.LabelStyle(font, font.getColor()));
 
         item1 = new MyLabel(itemString1, new Label.LabelStyle(font, font.getColor()));
         item1.setItemId(0);
@@ -471,6 +469,7 @@ public class InventoryScreen implements Screen {
         item10 = new MyLabel(itemString10, new Label.LabelStyle(font, font.getColor()));
         item10.setItemId(9);
 
+
         torso = new Label("Torso", new Label.LabelStyle(font, font.getColor()));
         rightArm = new Label("Right Arm", new Label.LabelStyle(font, font.getColor()));
         leftArm = new Label("Left Arm", new Label.LabelStyle(font, font.getColor()));
@@ -495,6 +494,8 @@ public class InventoryScreen implements Screen {
         item10.addItem(returnItem(9));
 
         selectInventoryLabel(item1);
+
+        selectedItemDescription = new Label(selectedItem.getDescription(), new Label.LabelStyle(font, font.getColor()));
 
         updateActionButton();
 
