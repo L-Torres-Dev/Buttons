@@ -19,6 +19,7 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Screens.ScreenManager;
 import com.mygdx.game.creatures.Hero;
 import com.mygdx.game.items.Consumable;
+import com.mygdx.game.items.Gear;
 import com.mygdx.game.items.Inventory;
 import com.mygdx.game.items.Item;
 
@@ -309,8 +310,13 @@ public class InventoryScreen implements Screen {
 
         if(selectedItem instanceof Consumable)
         {
-            System.out.println(true);
             actionButton.setText("Consume");
+        }
+
+        if(selectedItem instanceof Gear)
+        {
+            System.out.println("Action button now says Equip");
+            actionButton.setText("Equip");
         }
 
     }

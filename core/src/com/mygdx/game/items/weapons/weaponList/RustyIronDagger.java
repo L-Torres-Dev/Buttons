@@ -12,6 +12,7 @@ public class RustyIronDagger extends Weapon {
     {
         hand = Hand.RIGHT;
         name = "Rusty Iron Dagger";
+        description = "+1 luck, +1 speed";
 
         attackBuff = 1;
         arcanaBuff = 0;

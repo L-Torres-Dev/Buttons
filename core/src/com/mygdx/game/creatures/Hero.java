@@ -9,6 +9,7 @@ import com.mygdx.game.items.items.MegaPotion;
 import com.mygdx.game.items.weapons.Armor;
 import com.mygdx.game.items.weapons.Hand;
 import com.mygdx.game.items.weapons.Weapon;
+import com.mygdx.game.items.weapons.weaponList.RustyIronDagger;
 import com.mygdx.game.skills.MagicalSkill;
 import com.mygdx.game.skills.PhysicalSkill;
 import com.mygdx.game.skills.Skill;
@@ -57,8 +58,7 @@ public class Hero extends Character{
         addItem(new HealingPotion());
         addItem(new HealingPotion());
         addItem(new MegaPotion());
-        addItem(new HealingPotion());
-        addItem(new HealingPotion());
+        addItem(new RustyIronDagger());
         initializeInventory();
 
         gold = 10;
