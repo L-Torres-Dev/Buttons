@@ -1,5 +1,6 @@
 package com.mygdx.game.items.weapons;
 
+import com.mygdx.game.creatures.Hero;
 import com.mygdx.game.items.Gear;
 import com.mygdx.game.items.BodyType;
 
@@ -18,6 +19,11 @@ public class Weapon extends Gear {
     public Weapon()
     {
         bodyType = BodyType.ARMS;
+    }
+
+    public void equip(Hero hero)
+    {
+        hero.equip(this);
     }
 
     public Hand getHand() {

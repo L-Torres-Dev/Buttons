@@ -22,6 +22,7 @@ import com.mygdx.game.items.Consumable;
 import com.mygdx.game.items.Gear;
 import com.mygdx.game.items.Inventory;
 import com.mygdx.game.items.Item;
+import com.mygdx.game.items.weapons.Weapon;
 
 import java.util.ArrayList;
 
@@ -122,6 +123,13 @@ public class InventoryScreen implements Screen {
                     if (selectedItem instanceof Consumable) {
                         ((Consumable) selectedItem).consume(hero);
                         removeItem(selectedLabel);
+                    }
+
+                    if(selectedItem instanceof Gear){
+                        if(selectedItem instanceof Weapon){
+                            ((Weapon) selectedItem).equip(hero);
+                            removeItem(selectedLabel);
+                        }
                     }
                 }
             }

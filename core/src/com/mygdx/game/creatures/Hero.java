@@ -8,7 +8,9 @@ import com.mygdx.game.items.items.HealingPotion;
 import com.mygdx.game.items.items.MegaPotion;
 import com.mygdx.game.items.weapons.Armor;
 import com.mygdx.game.items.weapons.Hand;
+import com.mygdx.game.items.weapons.Shield;
 import com.mygdx.game.items.weapons.Weapon;
+import com.mygdx.game.items.weapons.shieldList.WoodenShield;
 import com.mygdx.game.items.weapons.weaponList.RustyIronDagger;
 import com.mygdx.game.skills.MagicalSkill;
 import com.mygdx.game.skills.PhysicalSkill;
@@ -55,10 +57,9 @@ public class Hero extends Character{
         feet = new Feet();
 
         addItem(new HealingPotion());
-        addItem(new HealingPotion());
-        addItem(new HealingPotion());
         addItem(new MegaPotion());
         addItem(new RustyIronDagger());
+        addItem(new WoodenShield());
         initializeInventory();
 
         gold = 10;
@@ -147,6 +148,20 @@ public class Hero extends Character{
 
     public void equip(Armor gear)
     {
+        switch (gear.getBodyType())
+        {
+            case TORSO:
+                torso.unequip();
+                torso.setItem(gear);
+                break;
+            case LEGS:
+                legs.unequip();
+                legs.setItem(gear);
+                break;
+            case FEET:
+                feet.unequip();
+                feet.setItem(gear);
+        }
 
     }
 
@@ -260,6 +275,7 @@ public class Hero extends Character{
 
         public void setItem(Gear item) {
             this.item = item;
+            item.setEquipped(true);
         }
     }
 
@@ -267,26 +283,37 @@ public class Hero extends Character{
 
         Hand hand = Hand.RIGHT;
 
+        public Hand getHand() {
+            return hand;
+        }
+
+        public void setHand(Hand hand) {
+            this.hand = hand;
+        }
     }
 
     private class LeftArm extends Body{
 
         Hand hand = Hand.RIGHT;
+
+        public Hand getHand() {
+            return hand;
+        }
+
+        public void setHand(Hand hand) {
+            this.hand = hand;
+        }
     }
 
     private class Legs extends Body{
 
-        Gear pants;
     }
 
     private class Feet extends Body{
 
-        Gear shoes;
     }
 
     private class Torso extends Body{
-
-        Gear shirt;
     }
 
 }
