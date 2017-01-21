@@ -3,6 +3,8 @@ package com.mygdx.game.items.weapons.weaponList;
 import com.mygdx.game.items.weapons.Hand;
 import com.mygdx.game.items.weapons.Weapon;
 
+import java.util.Random;
+
 /**
  * Created by louie on 1/3/2017.
  */
@@ -10,9 +12,20 @@ public class RustyIronDagger extends Weapon {
 
     public RustyIronDagger()
     {
-        hand = Hand.RIGHT;
+       super();
+
+
         name = "Rusty Iron Dagger";
-        description = "+1 luck, +1 speed";
+        if(hand == Hand.RIGHT)
+        {
+            description = "+1 luck, +1 speed. (Right Hand)";
+        }
+
+        else
+        {
+            description = "+1 luck, +1 speed. (Left Hand)";
+        }
+
 
         attackBuff = 1;
         arcanaBuff = 0;

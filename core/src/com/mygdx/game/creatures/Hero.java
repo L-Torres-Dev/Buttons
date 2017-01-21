@@ -31,11 +31,11 @@ public class Hero extends Character{
     Journal journal;
     Inventory inventory;
 
-    Torso torso;
-    RightArm rightArm;
-    LeftArm leftArm;
-    Legs legs;
-    Feet feet;
+    public Torso torso;
+    public RightArm rightArm;
+    public LeftArm leftArm;
+    public Legs legs;
+    public Feet feet;
 
     int exp;                    // Holds how much experience points the hero has.
     int nextLevelExp;           // Holds how much experience points the hero need to level up.
@@ -66,6 +66,12 @@ public class Hero extends Character{
         createSkills();
         setRegens();
 
+    }
+
+    public Item getBodyItem(Body body)
+    {
+
+        return body.getItem();
     }
 
     public void initializeInventory()
@@ -261,7 +267,12 @@ public class Hero extends Character{
 
     private class Body{
 
-        Gear item;
+       public Gear item;
+
+        public Body(){
+            item = new Gear();
+            item.setName("NONE");
+        }
 
         public void unequip()
         {
@@ -283,6 +294,10 @@ public class Hero extends Character{
 
         Hand hand = Hand.RIGHT;
 
+        public RightArm() {
+            super();
+        }
+
         public Hand getHand() {
             return hand;
         }
@@ -296,6 +311,10 @@ public class Hero extends Character{
 
         Hand hand = Hand.RIGHT;
 
+        public LeftArm() {
+            super();
+        }
+
         public Hand getHand() {
             return hand;
         }
@@ -307,13 +326,25 @@ public class Hero extends Character{
 
     private class Legs extends Body{
 
+        public Legs(){
+            super();
+        }
+
     }
 
     private class Feet extends Body{
 
+        public Feet(){
+            super();
+        }
+
     }
 
     private class Torso extends Body{
+
+        public Torso(){
+            super();
+        }
     }
 
 }

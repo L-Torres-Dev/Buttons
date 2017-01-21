@@ -85,6 +85,13 @@ public class InventoryScreen implements Screen {
     String itemString8;
     String itemString9;
     String itemString10;
+
+    String torsoString;
+    String leftArmString;
+    String rightArmString;
+    String legsString;
+    String feetString;
+
     private static final String EMPTY = "EMPTY";
 
     public InventoryScreen(MyGdxGame game, SpriteBatch batch, ScreenManager manager)
@@ -372,6 +379,12 @@ public class InventoryScreen implements Screen {
         item10.setText(itemString10);
         item10.setLabelText();
 
+        myTorso.setText(torsoString);
+        myRightArm.setText(rightArmString);
+        myLeftArm.setText(leftArmString);
+        myLegs.setText(legsString);
+        myFeet.setText(feetString);
+
         selectedItemDescription.setText(selectedItem.getDescription());
 
     }
@@ -391,6 +404,11 @@ public class InventoryScreen implements Screen {
         itemString9 = "";
         itemString10 = "";
 
+        torsoString = (hero.getBodyItem(hero.getTorso()).getName());
+        rightArmString = (hero.getBodyItem(hero.getRightArm()).getName());
+        leftArmString = (hero.getBodyItem(hero.getLeftArm()).getName());
+        legsString = (hero.getBodyItem(hero.getLegs()).getName());
+        feetString = (hero.getBodyItem(hero.getFeet()).getName());
 
 
         // add strings to list

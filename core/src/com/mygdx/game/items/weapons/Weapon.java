@@ -4,6 +4,8 @@ import com.mygdx.game.creatures.Hero;
 import com.mygdx.game.items.Gear;
 import com.mygdx.game.items.BodyType;
 
+import java.util.Random;
+
 /**
  * Created by louie on 12/24/2016.
  */
@@ -19,6 +21,20 @@ public class Weapon extends Gear {
     public Weapon()
     {
         bodyType = BodyType.ARMS;
+
+        Random random = new Random();
+
+        int ranNum = random.nextInt(2);
+
+        if(ranNum == 0)
+        {
+            hand = Hand.RIGHT;
+        }
+        else if(ranNum == 1)
+        {
+            hand = Hand.LEFT;
+        }
+        System.out.println("The number is: " + ranNum);
     }
 
     public void equip(Hero hero)
