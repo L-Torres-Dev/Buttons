@@ -139,6 +139,9 @@ public class InventoryScreen implements Screen {
                         }
                     }
                 }
+
+                selectInventoryLabel(item1);
+                updateActionButton();
             }
         });
     }
@@ -244,6 +247,46 @@ public class InventoryScreen implements Screen {
                 updateActionButton();
             }
         });
+
+        myTorso.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                selectInventoryLabel(myTorso);
+                updateActionButton();
+            }
+        });
+
+        myLeftArm.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                selectInventoryLabel(myLeftArm);
+                updateActionButton();
+            }
+        });
+
+        myRightArm.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                selectInventoryLabel(myRightArm);
+                updateActionButton();
+            }
+        });
+
+        legs.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                selectInventoryLabel(myLegs);
+                updateActionButton();
+            }
+        });
+
+        feet.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                selectInventoryLabel(myFeet);
+                updateActionButton();
+            }
+        });
     }
 
     public void initiateHero(Hero hero){
@@ -330,8 +373,14 @@ public class InventoryScreen implements Screen {
 
         if(selectedItem instanceof Gear)
         {
-            System.out.println("Action button now says Equip");
-            actionButton.setText("Equip");
+            if(selectedLabel.isEquipmentLabel())
+            {
+                actionButton.setText("Unequip");
+            }
+            else
+            {
+                actionButton.setText("Equip");
+            }
         }
 
     }
@@ -509,10 +558,15 @@ public class InventoryScreen implements Screen {
         feet = new Label("Feet", new Label.LabelStyle(font, font.getColor()));
 
         myTorso = new MyLabel(EMPTY, new Label.LabelStyle(font, font.getColor()));
+        myTorso.setEquipmentLabel(true);
         myRightArm = new MyLabel(EMPTY, new Label.LabelStyle(font, font.getColor()));
+        myRightArm.setEquipmentLabel(true);
         myLeftArm = new MyLabel(EMPTY, new Label.LabelStyle(font, font.getColor()));
+        myLeftArm.setEquipmentLabel(true);
         myLegs = new MyLabel(EMPTY, new Label.LabelStyle(font, font.getColor()));
+        myLegs.setEquipmentLabel(true);
         myFeet = new MyLabel(EMPTY, new Label.LabelStyle(font, font.getColor()));
+        myFeet.setEquipmentLabel(true);
 
         item1.addItem(returnItem(0));
         item2.addItem(returnItem(1));
@@ -615,6 +669,7 @@ public class InventoryScreen implements Screen {
     public class MyLabel extends Label{
 
         boolean selected;
+        boolean equipmentLabel;
         Item item;
         int itemId;
 
@@ -652,6 +707,14 @@ public class InventoryScreen implements Screen {
 
         public MyLabel(CharSequence text, LabelStyle style) {
             super(text, style);
+        }
+
+        public boolean isEquipmentLabel() {
+            return equipmentLabel;
+        }
+
+        public void setEquipmentLabel(boolean equipmentLabel) {
+            this.equipmentLabel = equipmentLabel;
         }
 
         public boolean isSelected() {

@@ -3,8 +3,6 @@ package com.mygdx.game.items.weapons.weaponList;
 import com.mygdx.game.items.weapons.Hand;
 import com.mygdx.game.items.weapons.Weapon;
 
-import java.util.Random;
-
 /**
  * Created by louie on 1/3/2017.
  */
@@ -27,7 +25,7 @@ public class RustyIronDagger extends Weapon {
         }
 
 
-        attackBuff = 1;
+        strengthBuff = 1;
         arcanaBuff = 0;
         speedBuff = 1;
         luckBuff = 0;

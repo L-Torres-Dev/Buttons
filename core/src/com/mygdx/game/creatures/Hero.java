@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * Created by louie on 9/10/2016.
  */
-public class Hero extends Character{
+public class Hero extends Character {
 
     Journal journal;
     Inventory inventory;
@@ -41,7 +41,7 @@ public class Hero extends Character{
     int nextLevelExp;           // Holds how much experience points the hero need to level up.
     int gold;
 
-    public Hero(int lvl){
+    public Hero(int lvl) {
         level = lvl;
         inventory = new Inventory();
         skillTree = new SkillTree();
@@ -50,11 +50,11 @@ public class Hero extends Character{
         status = new Status();
         name = "Hero";
 
-        torso = new Torso();
-        rightArm = new RightArm();
-        leftArm = new LeftArm();
-        legs = new Legs();
-        feet = new Feet();
+        torso = new Torso(this);
+        rightArm = new RightArm(this);
+        leftArm = new LeftArm(this);
+        legs = new Legs(this);
+        feet = new Feet(this);
 
         addItem(new HealingPotion());
         addItem(new MegaPotion());
@@ -68,16 +68,13 @@ public class Hero extends Character{
 
     }
 
-    public Item getBodyItem(Body body)
-    {
+    public Item getBodyItem(Body body) {
 
         return body.getItem();
     }
 
-    public void initializeInventory()
-    {
-        for(int i = inventory.getItems().size() - 1; i < Inventory.maxItems - 1; i++)
-        {
+    public void initializeInventory() {
+        for (int i = inventory.getItems().size() - 1; i < Inventory.maxItems - 1; i++) {
             addItem(new Item());
         }
     }
@@ -87,7 +84,7 @@ public class Hero extends Character{
         PhysicalSkill strike = new Strike(this);
         skillTree.add(strike);
 
-        if(strike.getReqLvl() <= this.level){
+        if (strike.getReqLvl() <= this.level) {
             skillSet.add(strike);
         }
 
@@ -95,12 +92,12 @@ public class Hero extends Character{
         skillTree.add(heal);
 
 
-        if(strike.getReqLvl() <= this.level){
+        if (strike.getReqLvl() <= this.level) {
             skillSet.add(heal);
         }
 
-        if(skillSet.size() < 4){
-            for(int i = skillSet.size() - 1; i < 3; i++){
+        if (skillSet.size() < 4) {
+            for (int i = skillSet.size() - 1; i < 3; i++) {
                 skillSet.add(i, new Skill());
                 skillSet.get(i).setName("NONE" + i);
             }
@@ -110,9 +107,7 @@ public class Hero extends Character{
     }
 
 
-
-
-    public void attack(Skill skill, Character enemy){
+    public void attack(Skill skill, Character enemy) {
 
         skill.use(this, enemy);
 
@@ -124,13 +119,22 @@ public class Hero extends Character{
     public void update() {
 
         super.update();
-        int nextLvl = (level * level) +  (level * level / 3) +(6 + level);
+        int nextLvl = (level * level) + (level * level / 3) + (6 + level);
         exp = 0;
 
         setNextLevelExp(nextLvl);
 
 
     }
+
+    public void setAllBuffs(){
+        torso.getItem().setHeroBuffs(this, true);
+        rightArm.getItem().setHeroBuffs(this, true);
+        leftArm.getItem().setHeroBuffs(this, true);
+        legs.getItem().setHeroBuffs(this, true);
+        feet.getItem().setHeroBuffs(this, true);
+    }
+
     public void equip(Weapon gear)
 {
 
@@ -150,6 +154,8 @@ public class Hero extends Character{
                 break;
         }
         gear.setEquipped(true);
+        gear.setHeroBuffs(this, true);
+
     }
 
     public void equip(Armor gear)
@@ -268,8 +274,10 @@ public class Hero extends Character{
     private class Body{
 
        public Gear item;
+        Hero hero;
 
-        public Body(){
+        public Body(Hero hero){
+            this.hero = hero;
             item = new Gear();
             item.setName("NONE");
         }
@@ -278,6 +286,7 @@ public class Hero extends Character{
         {
             inventory.add(item);
             item.setEquipped(false);
+            item.setHeroBuffs(hero, false);
         }
 
         public Gear getItem() {
@@ -294,8 +303,8 @@ public class Hero extends Character{
 
         Hand hand = Hand.RIGHT;
 
-        public RightArm() {
-            super();
+        public RightArm(Hero hero) {
+            super(hero);
         }
 
         public Hand getHand() {
@@ -311,8 +320,8 @@ public class Hero extends Character{
 
         Hand hand = Hand.RIGHT;
 
-        public LeftArm() {
-            super();
+        public LeftArm(Hero hero) {
+            super(hero);
         }
 
         public Hand getHand() {
@@ -326,24 +335,24 @@ public class Hero extends Character{
 
     private class Legs extends Body{
 
-        public Legs(){
-            super();
+        public Legs(Hero hero){
+            super(hero);
         }
 
     }
 
     private class Feet extends Body{
 
-        public Feet(){
-            super();
+        public Feet(Hero hero){
+            super(hero);
         }
 
     }
 
     private class Torso extends Body{
 
-        public Torso(){
-            super();
+        public Torso(Hero hero){
+            super(hero);
         }
     }
 
