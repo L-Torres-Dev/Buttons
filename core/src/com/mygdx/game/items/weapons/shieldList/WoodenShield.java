@@ -12,5 +12,7 @@ public class WoodenShield extends Shield{
         super();
         name = "Wooden Shield";
         description = "+1 defense";
+
+        nonExistent = false;
     }
 }

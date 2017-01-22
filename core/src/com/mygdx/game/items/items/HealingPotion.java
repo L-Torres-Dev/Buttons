@@ -16,6 +16,7 @@ public class HealingPotion extends Consumable{
         healing = 15;
 
         description = "Heals for " + healing + " hp.";
+        nonExistent = false;
     }
 
     public void consume(Character character){

@@ -17,6 +17,7 @@ public class MegaPotion extends Consumable {
         name = "Mega Potion";
 
         description = "Heals for " + healing + " hp.";
+        nonExistent = false;
     }
 
     @Override

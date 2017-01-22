@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -22,6 +23,7 @@ import com.mygdx.game.items.Consumable;
 import com.mygdx.game.items.Gear;
 import com.mygdx.game.items.Inventory;
 import com.mygdx.game.items.Item;
+import com.mygdx.game.items.weapons.Hand;
 import com.mygdx.game.items.weapons.Weapon;
 
 import java.util.ArrayList;
@@ -44,6 +46,8 @@ public class InventoryScreen implements Screen {
     Table interfaceTable;
     Table buttonTable;
 
+    Label debug;
+
     Label selectedItemDescription;
     Label items;        // Just a label to indicate where the itemList is
     Label torso;
@@ -52,6 +56,7 @@ public class InventoryScreen implements Screen {
     Label legs;
     Label feet;
 
+    boolean equippedItem;
     MyLabel myTorso;
     MyLabel myRightArm;
     MyLabel myLeftArm;
@@ -134,14 +139,36 @@ public class InventoryScreen implements Screen {
 
                     if(selectedItem instanceof Gear){
                         if(selectedItem instanceof Weapon){
-                            ((Weapon) selectedItem).equip(hero);
-                            removeItem(selectedLabel);
+                            if(equippedItem == false) {
+                                ((Weapon) selectedItem).equip(hero);
+                                if(((Weapon) selectedItem).getHand() == Hand.RIGHT)
+                                {
+                                   myRightArm.addItem(selectedItem);
+                                }
+                                else
+                                {
+                                    myLeftArm.addItem(selectedItem);
+                                }
+                                removeItem(selectedLabel);
+                            }
+                            else{
+                                if(((Weapon) selectedItem).getHand() == Hand.RIGHT)
+                                {
+                                    hero.unEquip(hero.getRightArm());
+                                    System.out.println(hero.getInventory().toString());
+                                }
+                                else
+                                {
+                                    hero.unEquip(hero.getLeftArm());
+                                    System.out.println(hero.getInventory().toString());
+                                }
+                            }
                         }
                     }
                 }
 
                 selectInventoryLabel(item1);
-                updateActionButton();
+                updateActionButton(false);
             }
         });
     }
@@ -172,7 +199,7 @@ public class InventoryScreen implements Screen {
            @Override
             public void clicked(InputEvent event, float x, float y){
                 selectInventoryLabel(item1);
-               updateActionButton();
+               updateActionButton(false);
             }
         });
 
@@ -180,7 +207,7 @@ public class InventoryScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 selectInventoryLabel(item2);
-                updateActionButton();
+                updateActionButton(false);
             }
         });
 
@@ -188,7 +215,7 @@ public class InventoryScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 selectInventoryLabel(item3);
-                updateActionButton();
+                updateActionButton(false);
             }
         });
 
@@ -196,7 +223,7 @@ public class InventoryScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 selectInventoryLabel(item4);
-                updateActionButton();
+                updateActionButton(false);
             }
         });
 
@@ -204,7 +231,7 @@ public class InventoryScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 selectInventoryLabel(item5);
-                updateActionButton();
+                updateActionButton(false);
             }
         });
 
@@ -212,7 +239,7 @@ public class InventoryScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 selectInventoryLabel(item6);
-                updateActionButton();
+                updateActionButton(false);
             }
         });
 
@@ -220,7 +247,7 @@ public class InventoryScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 selectInventoryLabel(item7);
-                updateActionButton();
+                updateActionButton(false);
             }
         });
 
@@ -228,7 +255,7 @@ public class InventoryScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 selectInventoryLabel(item8);
-                updateActionButton();
+                updateActionButton(false);
             }
         });
 
@@ -236,7 +263,7 @@ public class InventoryScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 selectInventoryLabel(item9);
-                updateActionButton();
+                updateActionButton(false);
             }
         });
 
@@ -244,47 +271,59 @@ public class InventoryScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 selectInventoryLabel(item10);
-                updateActionButton();
+                updateActionButton(false);
             }
         });
 
         myTorso.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                selectInventoryLabel(myTorso);
-                updateActionButton();
+                if((!myTorso.getItem().isNonExistent())) {
+                    selectInventoryLabel(myTorso);
+                    updateActionButton(true);
+                }
             }
         });
 
         myLeftArm.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                selectInventoryLabel(myLeftArm);
-                updateActionButton();
+                if((!myLeftArm.getItem().isNonExistent())) {
+                    selectInventoryLabel(myLeftArm);
+                    updateActionButton(true);
+                    System.out.println("Something Happened!");
+                }
             }
         });
 
         myRightArm.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                selectInventoryLabel(myRightArm);
-                updateActionButton();
+                if((!myRightArm.getItem().isNonExistent())) {
+                    selectInventoryLabel(myRightArm);
+                    updateActionButton(true);
+                    System.out.println("Something Happened!");
+                }
             }
         });
 
         legs.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                selectInventoryLabel(myLegs);
-                updateActionButton();
+                if((!myLegs.getItem().isNonExistent())) {
+                    selectInventoryLabel(myLegs);
+                    updateActionButton(true);
+                }
             }
         });
 
-        feet.addListener(new ClickListener() {
+        myFeet.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                selectInventoryLabel(myFeet);
-                updateActionButton();
+                if((!myFeet.getItem().isNonExistent())) {
+                    selectInventoryLabel(myFeet);
+                    updateActionButton(true);
+                }
             }
         });
     }
@@ -294,8 +333,6 @@ public class InventoryScreen implements Screen {
         initString();
         initLabels();
         setStageProperties();
-
-        System.out.println(hero.getInventory().getItems().size());
     }
 
     private void setStageProperties(){
@@ -361,10 +398,12 @@ public class InventoryScreen implements Screen {
         mainTable.add(itemsTable).top().padRight(60);
         mainTable.row();
         mainTable.add(buttonTable);
+        mainTable.row();
+        mainTable.add(debug);
 
     }
 
-    private void updateActionButton(){
+    private void updateActionButton(boolean equippedItem){
 
         if(selectedItem instanceof Consumable)
         {
@@ -376,12 +415,16 @@ public class InventoryScreen implements Screen {
             if(selectedLabel.isEquipmentLabel())
             {
                 actionButton.setText("Unequip");
+                equippedItem = true;
             }
             else
             {
                 actionButton.setText("Equip");
+                equippedItem = false;
             }
         }
+
+        this.equippedItem = equippedItem;
 
     }
 
@@ -435,6 +478,8 @@ public class InventoryScreen implements Screen {
         myFeet.setText(feetString);
 
         selectedItemDescription.setText(selectedItem.getDescription());
+
+        debug.setText(selectedItem.getName());
 
     }
 
@@ -518,6 +563,8 @@ public class InventoryScreen implements Screen {
     private void initLabels() {
         String spacing = "                   ";
 
+        debug = new Label("" + spacing, new Label.LabelStyle(font, font.getColor()));
+
         items = new Label("Items:" + spacing, new Label.LabelStyle(font, font.getColor()));
 
         item1 = new MyLabel(itemString1, new Label.LabelStyle(font, font.getColor()));
@@ -579,11 +626,23 @@ public class InventoryScreen implements Screen {
         item9.addItem(returnItem(8));
         item10.addItem(returnItem(9));
 
+        myTorso.addItem(new Item());
+        myRightArm.addItem(new Item());
+        myLeftArm.addItem(new Item());
+        myLegs.addItem(new Item());
+        myFeet.addItem(new Item());
+
+        myTorso.setEquipmentLabel(true);
+        myRightArm.setEquipmentLabel(true);
+        myLeftArm.setEquipmentLabel(true);
+        myLegs.setEquipmentLabel(true);
+        myFeet.setEquipmentLabel(true);
+
         selectInventoryLabel(item1);
 
         selectedItemDescription = new Label(selectedItem.getDescription(), new Label.LabelStyle(font, font.getColor()));
 
-        updateActionButton();
+        updateActionButton(false);
 
 
         addLabelListeners();
@@ -613,6 +672,12 @@ public class InventoryScreen implements Screen {
         item8.setSelected(false);
         item9.setSelected(false);
         item10.setSelected(false);
+
+        myTorso.setSelected(false);
+        myRightArm.setSelected(false);
+        myLeftArm.setSelected(false);
+        myLegs.setSelected(false);
+        myFeet.setSelected(false);
 
         label.setSelected(true);
         selectedItem = label.getItem();
@@ -670,7 +735,11 @@ public class InventoryScreen implements Screen {
 
         boolean selected;
         boolean equipmentLabel;
+
+
         Item item;
+
+
         int itemId;
 
         public void setLabelText(){
@@ -687,6 +756,11 @@ public class InventoryScreen implements Screen {
             {
                 setItem(item);
             }
+        }
+
+        public void removeItem()
+        {
+            item = new Item();
         }
 
         public MyLabel(CharSequence text, Skin skin) {

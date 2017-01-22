@@ -68,6 +68,13 @@ public class Hero extends Character {
 
     }
 
+    /**
+     * Allows the Inventory Screen to indirectly access the
+     * items of each part of the body that is equipped to the hero
+     * for some reason, it does not allow for direct access to the items.
+     * @param body
+     * @return
+     */
     public Item getBodyItem(Body body) {
 
         return body.getItem();
@@ -175,6 +182,17 @@ public class Hero extends Character {
                 feet.setItem(gear);
         }
 
+    }
+
+    /**
+     * Allows indirect access to the body object's gear attributes.
+     * The Inventory Screen does not seem to have direct access to the
+     * Hero's Body attributes.
+     * @param body
+     */
+    public void unEquip(Body body)
+    {
+        body.unequip();
     }
 
     public boolean addItem(Item item)

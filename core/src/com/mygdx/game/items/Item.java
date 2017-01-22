@@ -15,11 +15,15 @@ public class Item {
     public String name;
     public String description;
 
+    public boolean nonExistent;
+
     public Item()
     {
-        name = "";
+        name = "NONE";
         description = "";
+        nonExistent = true;
     }
+
 
     public String getName() {
 
@@ -29,6 +33,14 @@ public class Item {
         }
 
         return name;
+    }
+
+    public boolean isNonExistent() {
+        return nonExistent;
+    }
+
+    public void setNonExistent(boolean nonExistant) {
+        this.nonExistent = nonExistant;
     }
 
     public void setName(String name) {

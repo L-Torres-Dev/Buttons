@@ -30,6 +30,7 @@ public class RustyIronDagger extends Weapon {
         speedBuff = 1;
         luckBuff = 0;
 
+        nonExistent = false;
 
     }
 
