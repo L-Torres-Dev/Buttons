@@ -7,5 +7,7 @@ public class Shield extends Weapon{
 
     public Shield(){
         hand = Hand.SHIELD;
+
+        nonExistent = false;
     }
 }

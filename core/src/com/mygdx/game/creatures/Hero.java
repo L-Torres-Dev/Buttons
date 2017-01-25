@@ -80,11 +80,39 @@ public class Hero extends Character {
         return body.getItem();
     }
 
+    /**
+     * Initializes the hero's inventory so that all of his/her items
+     * are sent to the top of the list.
+     */
     public void initializeInventory() {
         for (int i = inventory.getItems().size() - 1; i < Inventory.maxItems - 1; i++) {
             addItem(new Item());
         }
+        addItem(new Item());
     }
+
+    /**
+     * Updates the Hero's Inventory so that when an item is unequipped or
+     * equipped, all of the items are sent to the top of the Inventory list.
+     */
+   public void reInitializeInventory()
+   {
+       int itemId = 0;
+       for(int i = 0; i < Inventory.maxItems - 1; i++){
+           if(!inventory.getItemById(i).nonExistent)
+           {
+               inventory.getItems().set(itemId, inventory.getItemById(i));
+
+               if(i != itemId)
+               {
+                   inventory.getItems().set(i, new Item());
+               }
+               itemId++;
+           }
+       }
+
+
+   }
 
     private void createSkills() {
 

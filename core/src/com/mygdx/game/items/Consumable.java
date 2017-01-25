@@ -11,5 +11,6 @@ public class Consumable extends Item {
     public void consume(Character character)
     {
 
+        nonExistent = false;
     }
 }

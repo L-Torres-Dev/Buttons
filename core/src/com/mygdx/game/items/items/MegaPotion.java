@@ -13,6 +13,8 @@ public class MegaPotion extends Consumable {
     int healing;
 
     public MegaPotion(){
+        super();
+
         healing = 40;
         name = "Mega Potion";
 

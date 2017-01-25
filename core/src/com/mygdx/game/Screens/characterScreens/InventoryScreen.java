@@ -139,6 +139,7 @@ public class InventoryScreen implements Screen {
 
                     if(selectedItem instanceof Gear){
                         if(selectedItem instanceof Weapon){
+                            // To equip items
                             if(equippedItem == false) {
                                 ((Weapon) selectedItem).equip(hero);
                                 if(((Weapon) selectedItem).getHand() == Hand.RIGHT)
@@ -151,6 +152,7 @@ public class InventoryScreen implements Screen {
                                 }
                                 removeItem(selectedLabel);
                             }
+                            // To unequip items
                             else{
                                 if(((Weapon) selectedItem).getHand() == Hand.RIGHT)
                                 {
@@ -162,6 +164,8 @@ public class InventoryScreen implements Screen {
                                     hero.unEquip(hero.getLeftArm());
                                     System.out.println(hero.getInventory().toString());
                                 }
+
+                                hero.reInitializeInventory();
                             }
                         }
                     }

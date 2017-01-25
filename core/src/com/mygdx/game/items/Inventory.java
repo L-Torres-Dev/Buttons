@@ -16,7 +16,21 @@ public class Inventory {
 
     public void add(Item item)
     {
-        items.add(item);
+        if(items.size() < maxItems)
+        {
+            items.add(item);
+        }
+
+        else{
+            for(int i = 0; i < maxItems - 1; i++){
+                if(this.getItemById(i).nonExistent)
+                {
+                   items.set(i, item);
+                    break;
+                }
+            }
+        }
+
     }
 
     public void removeItem(int id)

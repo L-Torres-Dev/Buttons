@@ -12,6 +12,8 @@ public class HealingPotion extends Consumable{
 
     public HealingPotion(){
 
+        super();
+
         name = "Healing Potion";
         healing = 15;
 

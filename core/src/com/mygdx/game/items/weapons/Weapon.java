@@ -32,6 +32,8 @@ public class Weapon extends Gear {
             hand = Hand.LEFT;
         }
         System.out.println("The number is: " + ranNum);
+
+        nonExistent = false;
     }
 
     public void equip(Hero hero)
