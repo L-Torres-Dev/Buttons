@@ -22,6 +22,11 @@ public class Gear extends Item {
     public double arcanaBuff;
     public double resistanceBuff;
 
+    public Gear(){
+        super();
+        nonExistent = true;
+    }
+
     public void setHeroBuffs(Hero hero, boolean equipping){
 
         if(equipping)

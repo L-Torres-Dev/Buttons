@@ -24,6 +24,7 @@ import com.mygdx.game.items.Gear;
 import com.mygdx.game.items.Inventory;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.items.weapons.Hand;
+import com.mygdx.game.items.weapons.Shield;
 import com.mygdx.game.items.weapons.Weapon;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class InventoryScreen implements Screen {
     Label legs;
     Label feet;
 
-    boolean equippedItem;
+    boolean equippedItem;       // Holds true only if a MyLabel that can hold an equipped item is selected
     MyLabel myTorso;
     MyLabel myRightArm;
     MyLabel myLeftArm;
@@ -138,8 +139,10 @@ public class InventoryScreen implements Screen {
                     }
 
                     if(selectedItem instanceof Gear){
-                        if(selectedItem instanceof Weapon){
-                            // To equip items
+
+                        // If the gear that is either being equipped or unequipped is a Weapon
+                        if(selectedItem instanceof Weapon && !(selectedItem instanceof Shield)){
+                            // To equip weapons
                             if(equippedItem == false) {
                                 ((Weapon) selectedItem).equip(hero);
                                 if(((Weapon) selectedItem).getHand() == Hand.RIGHT)
@@ -152,20 +155,57 @@ public class InventoryScreen implements Screen {
                                 }
                                 removeItem(selectedLabel);
                             }
-                            // To unequip items
+                            // To unequip weapons
                             else{
                                 if(((Weapon) selectedItem).getHand() == Hand.RIGHT)
                                 {
                                     hero.unEquip(hero.getRightArm());
-                                    System.out.println(hero.getInventory().toString());
+                                    myRightArm.setItem(hero.getBodyItem(hero.getRightArm()));
                                 }
                                 else
                                 {
                                     hero.unEquip(hero.getLeftArm());
-                                    System.out.println(hero.getInventory().toString());
+                                    myRightArm.setItem(hero.getBodyItem(hero.getLeftArm()));
                                 }
 
                                 hero.reInitializeInventory();
+                            }
+                        }
+                        // If the gear that is either being equipped or unequipped is a Shield
+                        if(selectedItem instanceof Shield){
+                            // To equip shield
+                            if(!equippedItem){
+                                ((Shield) selectedItem).equip(hero);
+                                if(((Shield) selectedItem).getHand() == Hand.RIGHT)
+                                {
+                                    myRightArm.addItem(selectedItem);
+                                }
+                                else
+                                {
+                                    myLeftArm.addItem(selectedItem);
+                                }
+                                removeItem(selectedLabel);
+                            }
+                            // To unequip shield
+                            else{
+                                if(((Shield) selectedItem).getHand() == Hand.RIGHT)
+                                {
+                                    hero.unEquip(hero.getRightArm());
+                                    myRightArm.setItem(hero.getBodyItem(hero.getRightArm()));
+                                }
+                                else
+                                {
+                                    hero.unEquip(hero.getLeftArm());
+                                    myRightArm.setItem(hero.getBodyItem(hero.getLeftArm()));
+                                }
+
+                                hero.reInitializeInventory();
+                                if(((Shield) selectedItem).getHand() == Hand.RIGHT){
+                                    myRightArm.addItem(selectedItem);
+                                }
+                                else{
+                                    myLeftArm.addItem(selectedItem);
+                                }
                             }
                         }
                     }
@@ -305,6 +345,7 @@ public class InventoryScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 if((!myRightArm.getItem().isNonExistent())) {
                     selectInventoryLabel(myRightArm);
+                    System.out.println(true);
                     updateActionButton(true);
                     System.out.println("Something Happened!");
                 }

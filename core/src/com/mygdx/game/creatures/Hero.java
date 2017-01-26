@@ -170,6 +170,7 @@ public class Hero extends Character {
         feet.getItem().setHeroBuffs(this, true);
     }
 
+
     public void equip(Weapon gear)
 {
 
@@ -185,6 +186,19 @@ public class Hero extends Character {
                 leftArm.setItem(gear);
                 break;
 
+            case SHIELD:
+                if(rightArm.getItem().isNonExistent())
+                {
+                    rightArm.unequip();
+                    rightArm.setItem(gear);
+                    gear.setHand(Hand.RIGHT);
+                }
+                else
+                {
+                    leftArm.unequip();
+                    leftArm.setItem(gear);
+                    gear.setHand(Hand.LEFT);
+                }
             default:
                 break;
         }
@@ -333,6 +347,7 @@ public class Hero extends Character {
             inventory.add(item);
             item.setEquipped(false);
             item.setHeroBuffs(hero, false);
+            this.setItem(new Gear());
         }
 
         public Gear getItem() {
