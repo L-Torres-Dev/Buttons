@@ -199,20 +199,15 @@ public class InventoryScreen implements Screen {
                                     myRightArm.setItem(hero.getBodyItem(hero.getLeftArm()));
                                 }
 
-                                hero.reInitializeInventory();
-                                if(((Shield) selectedItem).getHand() == Hand.RIGHT){
-                                    myRightArm.addItem(selectedItem);
-                                }
-                                else{
-                                    myLeftArm.addItem(selectedItem);
-                                }
                             }
+                            hero.reInitializeInventory();
                         }
                     }
                 }
 
                 selectInventoryLabel(item1);
                 updateActionButton(false);
+                reinitializeMyLabels();
             }
         });
     }
@@ -440,11 +435,33 @@ public class InventoryScreen implements Screen {
         buttonTable.add(selectedItemDescription);
 
         mainTable.add(interfaceTable).width(mainTable.getWidth() * .65f).padRight(0);
-        mainTable.add(itemsTable).top().padRight(60);
+        mainTable.add(itemsTable).top().padRight(30);
         mainTable.row();
         mainTable.add(buttonTable);
         mainTable.row();
         mainTable.add(debug);
+
+    }
+
+    private void reinitializeMyLabels()
+    {
+
+        item1.setItem(hero.getInventory().getItemById(0));
+        item2.setItem(hero.getInventory().getItemById(1));
+        item3.setItem(hero.getInventory().getItemById(2));
+        item4.setItem(hero.getInventory().getItemById(3));
+        item5.setItem(hero.getInventory().getItemById(4));
+        item6.setItem(hero.getInventory().getItemById(5));
+        item7.setItem(hero.getInventory().getItemById(6));
+        item8.setItem(hero.getInventory().getItemById(7));
+        item9.setItem(hero.getInventory().getItemById(8));
+        item10.setItem(hero.getInventory().getItemById(9));
+
+        myTorso.setItem(hero.getBodyItem(hero.getTorso()));
+        myRightArm.setItem(hero.getBodyItem(hero.getRightArm()));
+        myLeftArm.setItem(hero.getBodyItem(hero.getLeftArm()));
+        myLegs.setItem(hero.getBodyItem(hero.getLegs()));
+        myFeet.setItem(hero.getBodyItem(hero.getFeet()));
 
     }
 
@@ -524,7 +541,7 @@ public class InventoryScreen implements Screen {
 
         selectedItemDescription.setText(selectedItem.getDescription());
 
-        debug.setText(selectedItem.getName());
+        debug.setText(item4.getItem().getName() + " " + hero.getInventory().toString());
 
     }
 
