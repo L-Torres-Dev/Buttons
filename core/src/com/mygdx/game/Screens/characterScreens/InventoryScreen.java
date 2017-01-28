@@ -98,6 +98,8 @@ public class InventoryScreen implements Screen {
     String legsString;
     String feetString;
 
+    String debugString;
+
     private static final String EMPTY = "EMPTY";
 
     public InventoryScreen(MyGdxGame game, SpriteBatch batch, ScreenManager manager)
@@ -121,49 +123,43 @@ public class InventoryScreen implements Screen {
     }
 
     private void addButtonListeners() {
-        backButton.addListener(new ClickListener(){
-           @Override
+        backButton.addListener(new ClickListener() {
+            @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(manager.getStatsScreen());
                 Gdx.input.setInputProcessor(manager.getStatsScreen().stage);
             }
         });
 
-        actionButton.addListener(new ClickListener(){
+        actionButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(!(selectedItem == null)) {
+                if (!(selectedItem == null)) {
                     if (selectedItem instanceof Consumable) {
                         ((Consumable) selectedItem).consume(hero);
                         removeItem(selectedLabel);
                     }
 
-                    if(selectedItem instanceof Gear){
+                    if (selectedItem instanceof Gear) {
 
                         // If the gear that is either being equipped or unequipped is a Weapon
-                        if(selectedItem instanceof Weapon && !(selectedItem instanceof Shield)){
+                        if (selectedItem instanceof Weapon && !(selectedItem instanceof Shield)) {
                             // To equip weapons
-                            if(equippedItem == false) {
+                            if (equippedItem == false) {
                                 ((Weapon) selectedItem).equip(hero);
-                                if(((Weapon) selectedItem).getHand() == Hand.RIGHT)
-                                {
-                                   myRightArm.addItem(selectedItem);
-                                }
-                                else
-                                {
+                                if (((Weapon) selectedItem).getHand() == Hand.RIGHT) {
+                                    myRightArm.addItem(selectedItem);
+                                } else {
                                     myLeftArm.addItem(selectedItem);
                                 }
                                 removeItem(selectedLabel);
                             }
                             // To unequip weapons
-                            else{
-                                if(((Weapon) selectedItem).getHand() == Hand.RIGHT)
-                                {
+                            else {
+                                if (((Weapon) selectedItem).getHand() == Hand.RIGHT) {
                                     hero.unEquip(hero.getRightArm());
                                     myRightArm.setItem(hero.getBodyItem(hero.getRightArm()));
-                                }
-                                else
-                                {
+                                } else {
                                     hero.unEquip(hero.getLeftArm());
                                     myRightArm.setItem(hero.getBodyItem(hero.getLeftArm()));
                                 }
@@ -172,34 +168,29 @@ public class InventoryScreen implements Screen {
                             }
                         }
                         // If the gear that is either being equipped or unequipped is a Shield
-                        if(selectedItem instanceof Shield){
+                        if (selectedItem instanceof Shield) {
                             // To equip shield
-                            if(!equippedItem){
+                            if (!equippedItem) {
                                 ((Shield) selectedItem).equip(hero);
-                                if(((Shield) selectedItem).getHand() == Hand.RIGHT)
-                                {
+                                if (((Shield) selectedItem).getHand() == Hand.RIGHT) {
                                     myRightArm.addItem(selectedItem);
-                                }
-                                else
-                                {
+                                } else {
                                     myLeftArm.addItem(selectedItem);
                                 }
                                 removeItem(selectedLabel);
                             }
                             // To unequip shield
-                            else{
-                                if(((Shield) selectedItem).getHand() == Hand.RIGHT)
-                                {
+                            else {
+                                if (((Shield) selectedItem).getHand() == Hand.RIGHT) {
                                     hero.unEquip(hero.getRightArm());
                                     myRightArm.setItem(hero.getBodyItem(hero.getRightArm()));
-                                }
-                                else
-                                {
+                                } else {
                                     hero.unEquip(hero.getLeftArm());
                                     myRightArm.setItem(hero.getBodyItem(hero.getLeftArm()));
                                 }
 
                             }
+
                             hero.reInitializeInventory();
                         }
                     }
@@ -250,41 +241,41 @@ public class InventoryScreen implements Screen {
             }
         });
 
-        item3.addListener(new ClickListener(){
+        item3.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y){
+            public void clicked(InputEvent event, float x, float y) {
                 selectInventoryLabel(item3);
                 updateActionButton(false);
             }
         });
 
-        item4.addListener(new ClickListener(){
+        item4.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y){
+            public void clicked(InputEvent event, float x, float y) {
                 selectInventoryLabel(item4);
                 updateActionButton(false);
             }
         });
 
-        item5.addListener(new ClickListener(){
+        item5.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y){
+            public void clicked(InputEvent event, float x, float y) {
                 selectInventoryLabel(item5);
                 updateActionButton(false);
             }
         });
 
-        item6.addListener(new ClickListener(){
+        item6.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y){
+            public void clicked(InputEvent event, float x, float y) {
                 selectInventoryLabel(item6);
                 updateActionButton(false);
             }
         });
 
-        item7.addListener(new ClickListener(){
+        item7.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y){
+            public void clicked(InputEvent event, float x, float y) {
                 selectInventoryLabel(item7);
                 updateActionButton(false);
             }
@@ -317,7 +308,7 @@ public class InventoryScreen implements Screen {
         myTorso.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if((!myTorso.getItem().isNonExistent())) {
+                if ((!myTorso.getItem().isNonExistent())) {
                     selectInventoryLabel(myTorso);
                     updateActionButton(true);
                 }
@@ -327,7 +318,7 @@ public class InventoryScreen implements Screen {
         myLeftArm.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if((!myLeftArm.getItem().isNonExistent())) {
+                if ((!myLeftArm.getItem().isNonExistent())) {
                     selectInventoryLabel(myLeftArm);
                     updateActionButton(true);
                     System.out.println("Something Happened!");
@@ -338,7 +329,7 @@ public class InventoryScreen implements Screen {
         myRightArm.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if((!myRightArm.getItem().isNonExistent())) {
+                if ((!myRightArm.getItem().isNonExistent())) {
                     selectInventoryLabel(myRightArm);
                     System.out.println(true);
                     updateActionButton(true);
@@ -350,7 +341,7 @@ public class InventoryScreen implements Screen {
         legs.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if((!myLegs.getItem().isNonExistent())) {
+                if ((!myLegs.getItem().isNonExistent())) {
                     selectInventoryLabel(myLegs);
                     updateActionButton(true);
                 }
@@ -360,7 +351,7 @@ public class InventoryScreen implements Screen {
         myFeet.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if((!myFeet.getItem().isNonExistent())) {
+                if ((!myFeet.getItem().isNonExistent())) {
                     selectInventoryLabel(myFeet);
                     updateActionButton(true);
                 }
@@ -541,7 +532,6 @@ public class InventoryScreen implements Screen {
 
         selectedItemDescription.setText(selectedItem.getDescription());
 
-        debug.setText(item4.getItem().getName() + " " + hero.getInventory().toString());
 
     }
 

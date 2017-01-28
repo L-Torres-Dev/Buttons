@@ -177,11 +177,19 @@ public class Hero extends Character {
         switch (gear.getHand())
         {
             case RIGHT:
+                if(rightArm.getItem() instanceof Shield)
+                {
+                    ((Shield) rightArm.getItem()).setHand(Hand.SHIELD);
+                }
                 rightArm.unequip();
                 rightArm.setItem(gear);
                 break;
 
             case LEFT:
+                if(rightArm.getItem() instanceof Shield)
+                {
+                    ((Shield) rightArm.getItem()).setHand(Hand.SHIELD);
+                }
                 leftArm.unequip();
                 leftArm.setItem(gear);
                 break;
@@ -195,6 +203,7 @@ public class Hero extends Character {
                 }
                 else
                 {
+                    System.out.println("shield will be equipped to other hand");
                     leftArm.unequip();
                     leftArm.setItem(gear);
                     gear.setHand(Hand.LEFT);
