@@ -1,22 +1,19 @@
 package com.mygdx.game.creatures;
 
-import com.mygdx.game.items.BodyType;
 import com.mygdx.game.items.Gear;
 import com.mygdx.game.items.Inventory;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.items.items.HealingPotion;
 import com.mygdx.game.items.items.MegaPotion;
-import com.mygdx.game.items.weapons.Armor;
-import com.mygdx.game.items.weapons.Hand;
-import com.mygdx.game.items.weapons.Shield;
-import com.mygdx.game.items.weapons.Weapon;
-import com.mygdx.game.items.weapons.shieldList.WoodenShield;
-import com.mygdx.game.items.weapons.weaponList.RustyIronDagger;
+import com.mygdx.game.items.armor.*;
+import com.mygdx.game.items.weapons.*;
+import com.mygdx.game.items.weapons.shieldList.*;
+import com.mygdx.game.items.weapons.weaponList.*;
+import com.mygdx.game.items.armor.armorList.*;
 import com.mygdx.game.skills.MagicalSkill;
 import com.mygdx.game.skills.PhysicalSkill;
 import com.mygdx.game.skills.Skill;
 import com.mygdx.game.skills.SkillTree;
-import com.mygdx.game.skills.SkillType;
 import com.mygdx.game.skills.specificSkills.Heal;
 import com.mygdx.game.skills.specificSkills.Strike;
 import com.mygdx.game.utils.Journal;
@@ -57,9 +54,9 @@ public class Hero extends Character {
         feet = new Feet(this);
 
         addItem(new HealingPotion());
-        addItem(new MegaPotion());
-        addItem(new RustyIronDagger());
-        addItem(new WoodenShield());
+        addItem(new OldShoes());
+        addItem(new OldTunic());
+        addItem(new RoughPants());
         initializeInventory();
 
         gold = 10;
@@ -203,7 +200,6 @@ public class Hero extends Character {
                 }
                 else
                 {
-                    System.out.println("shield will be equipped to other hand");
                     leftArm.unequip();
                     leftArm.setItem(gear);
                     gear.setHand(Hand.LEFT);
@@ -232,6 +228,8 @@ public class Hero extends Character {
                 feet.unequip();
                 feet.setItem(gear);
         }
+        gear.setEquipped(true);
+        gear.setHeroBuffs(this, true);
 
     }
 

@@ -13,6 +13,8 @@ public class WoodenShield extends Shield{
         name = "Wooden Shield";
         description = "+1 defense";
 
+        defenseBuff = 1;
+
         nonExistent = false;
     }
 }

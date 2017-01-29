@@ -25,10 +25,10 @@ public class RustyIronDagger extends Weapon {
         }
 
 
-        strengthBuff = 1;
+        strengthBuff = 0;
         arcanaBuff = 0;
         speedBuff = 1;
-        luckBuff = 0;
+        luckBuff = 1;
 
         nonExistent = false;
 

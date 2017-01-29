@@ -23,6 +23,9 @@ import com.mygdx.game.items.Consumable;
 import com.mygdx.game.items.Gear;
 import com.mygdx.game.items.Inventory;
 import com.mygdx.game.items.Item;
+import com.mygdx.game.items.armor.FeetArmor;
+import com.mygdx.game.items.armor.LegsArmor;
+import com.mygdx.game.items.armor.TorsoArmor;
 import com.mygdx.game.items.weapons.Hand;
 import com.mygdx.game.items.weapons.Shield;
 import com.mygdx.game.items.weapons.Weapon;
@@ -193,6 +196,52 @@ public class InventoryScreen implements Screen {
 
                             hero.reInitializeInventory();
                         }
+                        //To equip or unequip armor for the Torso
+                        if(selectedItem instanceof TorsoArmor)
+                        {
+                            // To equip TorsoArmor
+                            if(!equippedItem){
+                                ((TorsoArmor) selectedItem).equip(hero);
+                                myTorso.addItem(selectedItem);
+
+                                removeItem(selectedLabel);
+                            }
+                            // To unequip TorsoArmor
+                            else{
+                                hero.unEquip(hero.getTorso());
+
+                            }
+                        }
+                        // To equip or unequip armor for the Legs
+                        if(selectedItem instanceof LegsArmor)
+                        {
+                            // To equip LegsArmor
+                            if(!equippedItem){
+                                ((LegsArmor) selectedItem).equip(hero);
+                                myLegs.addItem(selectedItem);
+
+                                removeItem(selectedLabel);
+                            }
+                            // To unequip LegsArmor
+                            else{
+                                hero.unEquip(hero.getLegs());
+                            }
+                        }
+                        // To equip or unequip armor for the feet
+                        if(selectedItem instanceof FeetArmor){
+                            // To equip FeetArmor
+                            if(!equippedItem)
+                            {
+                                ((FeetArmor) selectedItem).equip(hero);
+                                myFeet.addItem(selectedItem);
+
+                                removeItem(selectedLabel);
+                            }
+                            // To unequip FeetArmor
+                            else{
+                                hero.unEquip(hero.getFeet());
+                            }
+                        }
                     }
                 }
 
@@ -321,7 +370,6 @@ public class InventoryScreen implements Screen {
                 if ((!myLeftArm.getItem().isNonExistent())) {
                     selectInventoryLabel(myLeftArm);
                     updateActionButton(true);
-                    System.out.println("Something Happened!");
                 }
             }
         });
@@ -333,12 +381,11 @@ public class InventoryScreen implements Screen {
                     selectInventoryLabel(myRightArm);
                     System.out.println(true);
                     updateActionButton(true);
-                    System.out.println("Something Happened!");
                 }
             }
         });
 
-        legs.addListener(new ClickListener() {
+        myLegs.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if ((!myLegs.getItem().isNonExistent())) {
