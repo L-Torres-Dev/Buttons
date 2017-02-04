@@ -254,43 +254,53 @@ public class BattleScreen implements Screen{
         nextButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                battleProgress();
+                if(!battleDisplay.isHasNewText()) {
+                    battleProgress();
+                }
             }
         });
 
         skill1Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                chosenSkill = skill1;
-                battle.setChosenSkill(chosenSkill);
-                battleProgress();
+                if(!battleDisplay.isHasNewText()) {
+                    chosenSkill = skill1;
+                    battle.setChosenSkill(chosenSkill);
+                    battleProgress();
+                }
             }
         });
 
         skill2Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                chosenSkill = skill2;
-                battle.setChosenSkill(chosenSkill);
-                battleProgress();
+                if(!battleDisplay.isHasNewText()) {
+                    chosenSkill = skill2;
+                    battle.setChosenSkill(chosenSkill);
+                    battleProgress();
+                }
             }
         });
 
         skill3Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                chosenSkill = skill3;
-                battle.setChosenSkill(chosenSkill);
-                battleProgress();
+                if(!battleDisplay.isHasNewText()) {
+                    chosenSkill = skill3;
+                    battle.setChosenSkill(chosenSkill);
+                    battleProgress();
+                }
             }
         });
 
         skill4Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                chosenSkill = skill4;
-                battle.setChosenSkill(chosenSkill);
-                battleProgress();
+                if(!battleDisplay.isHasNewText()) {
+                    chosenSkill = skill4;
+                    battle.setChosenSkill(chosenSkill);
+                    battleProgress();
+                }
             }
         });
 
